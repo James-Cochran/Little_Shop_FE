@@ -220,11 +220,29 @@ function displayMerchantItems(event) {
 function show(elements) {
   elements.forEach(element => {
     element.classList.remove('hidden')
+  
+    if (element === itemsView) {
+      setTimeout(() => {
+        element.classList.add('fade-in')
+      }, 0); 
+    }
+
+    if (element === merchantsView) {
+      setTimeout(() => {
+        element.classList.add('fade-in')
+      }, 0);
+    }
   })
 }
 
 function hide(elements) {
   elements.forEach(element => {
+    if (element === itemsView) {
+      element.classList.remove('fade-in') // Remove fade-in class before hiding
+    }
+    if (element === merchantsView) {
+      element.classList.remove('fade-in') // Remove fade-in class before hiding
+    }
     element.classList.add('hidden')
   })
 }
