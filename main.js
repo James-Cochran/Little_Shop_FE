@@ -231,7 +231,9 @@ function hide(elements) {
 
 function addRemoveActiveNav(nav1, nav2) {
   nav1.classList.add('active-nav')
+  nav1.classList.add('active-bubble')
   nav2.classList.remove('active-nav')
+  nav2.classList.remove('active-bubble')
 }
 
 function filterByMerchant(merchantId) {
