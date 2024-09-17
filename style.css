@@ -127,4 +127,25 @@ form {
   display: none;
 } 
   
-co
+#items-view {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #f4f4f4;
+  padding: 20px;
+}
+
+#items-view .item {
+  width: 30%;
+  margin: 1.5%;
+  padding: 15px;
+  background-color: #FFF4EA;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
