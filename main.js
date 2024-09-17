@@ -36,12 +36,14 @@ sortMerchantsButton.addEventListener('click', sortMerchants)
 
 //Global variables
 let merchants;
+let merchantsSorted;
 let items;
 
 //Page load data fetching
 Promise.all([fetchData('merchants'), fetchData('items')])
 .then(responses => {
     merchants = responses[0].data
+    merchantsSorted = [...responses[0].data]  // shallow copy.
     items = responses[1].data
     displayMerchants(merchants)
   })
@@ -133,6 +135,7 @@ function showMerchantsView() {
   addNewButton.dataset.state = 'merchant'
   show([merchantsView, addNewButton, sortMerchantsButton])
   hide([itemsView])
+  console.log(merchants)
   displayMerchants(merchants)
 }
 
@@ -255,12 +258,12 @@ function findMerchant(id) {
 }
 
 function sortMerchants() {
-  merchants.sort((a, b) => {
+  merchantsSorted.sort((a, b) => {
     const first = a.attributes.name.toLowerCase()
     const second = b.attributes.name.toLowerCase()
 
     return first.localeCompare(second);
   })
 
-  displayMerchants(merchants)
+  displayMerchants(merchantsSorted)
 }
