@@ -216,3 +216,49 @@ main button:hover {
   transform: scale(1.05);
 }
 
+#items-view {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: stretch;
+  background-color: white;
+  padding: 10px;
+}
+
+#items-view .item {
+  background-color: #f7f9fc;
+  width: 30%;
+  margin: .5%;
+  padding: 15px;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+#items-view .item h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px; 
+}
+
+#items-view .item p {
+  margin: 10px 0;
+  line-height: 1.5; 
+}
+
+#items-view p:nth-child(3n+1) {
+  margin-top: 10px; 
+  font-weight: bold;
+}
+
+#items-view .item .merchant {
+  font-style: italic;
+  margin-top: 5px;
+  font-size: 0.9em;  
+  color: #333; 
+}
+
+
