@@ -131,7 +131,7 @@ function showMerchantsView() {
   showingText.innerText = "All Merchants"
   addRemoveActiveNav(merchantsNavButton, itemsNavButton)
   addNewButton.dataset.state = 'merchant'
-  show([merchantsView, addNewButton])
+  show([merchantsView, addNewButton, sortMerchantsButton])
   hide([itemsView])
   displayMerchants(merchants)
 }
@@ -141,14 +141,14 @@ function showItemsView() {
   addRemoveActiveNav(itemsNavButton, merchantsNavButton)
   addNewButton.dataset.state = 'item'
   show([itemsView])
-  hide([merchantsView, merchantForm, addNewButton])
+  hide([merchantsView, merchantForm, addNewButton, sortMerchantsButton])
   displayItems(items)
 }
 
 function showMerchantItemsView(id, items) {
   showingText.innerText = `All Items for Merchant #${id}`
   show([itemsView])
-  hide([merchantsView, addNewButton])
+  hide([merchantsView, addNewButton, sortMerchantsButton])
   addRemoveActiveNav(itemsNavButton, merchantsNavButton)
   addNewButton.dataset.state = 'item'
   displayItems(items)
