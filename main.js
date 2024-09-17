@@ -9,6 +9,7 @@ const merchantsNavButton = document.querySelector("#merchants-nav")
 const itemsNavButton = document.querySelector("#items-nav")
 const addNewButton = document.querySelector("#add-new-button")
 const showingText = document.querySelector("#showing-text")
+const sortMerchantsButton = document.querySelector("#sort-merchants-button")
 
 //Form elements
 const merchantForm = document.querySelector("#new-merchant-form")
@@ -30,6 +31,8 @@ addNewButton.addEventListener('click', () => {
 submitMerchantButton.addEventListener('click', (event) => {
   submitMerchant(event)
 })
+
+sortMerchantsButton.addEventListener('click', sortMerchants)
 
 //Global variables
 let merchants;
@@ -235,24 +238,29 @@ function addRemoveActiveNav(nav1, nav2) {
 }
 
 function filterByMerchant(merchantId) {
-  const specificMerchantItems = []
-
-  for (let i = 0; i < items.length; i++) {
-    if (items[i].attributes.merchant_id === parseInt(merchantId)) {
-      specificMerchantItems.push(items[i])
-    }
-  }
-
+  const specificMerchantItems = items.filter((item) => {
+    return item.attributes.merchant_id === parseInt(merchantId)
+  })
   return specificMerchantItems
 }
 
 function findMerchant(id) {
-  let foundMerchant;
 
-  for (let i = 0; i < merchants.length; i++) {
-    if (parseInt(merchants[i].id) === parseInt(id)) {
-      foundMerchant = merchants[i]
-      return foundMerchant
-    }
-  }
+  let foundMerchant = merchants.find((merchant) => {
+    return (parseInt(id)) === (parseInt(merchant.id))
+  })
+
+  return foundMerchant
+   
+}
+
+function sortMerchants() {
+  merchants.sort((a, b) => {
+    const first = a.attributes.name.toLowerCase()
+    const second = b.attributes.name.toLowerCase()
+
+    return first.localeCompare(second);
+  })
+
+  displayMerchants(merchants)
 }
