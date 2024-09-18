@@ -266,4 +266,13 @@ main button:hover {
   color: #333; 
 }
 
+.no-item {
+  /* background: linear-gradient(#f39c12, #00bfff); */
+  text-align: center;
+}
+
+.no-item h2 {
+  margin-top: 5px;
+  padding: 15px;
+}
 

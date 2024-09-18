@@ -163,12 +163,12 @@ function displayItems(items) {
   itemsView.innerHTML = ''
   if (items.length === 0 ) {
     itemsView.innerHTML += `
-    <article class="item" id="item-">
-    <img src="" alt="">
-    <h2>This Merchant Currently Has No Items List</h2>
-    <p>Please check again another time.</p>
-    <p>Thank you.</p>
-    <p class="merchant-name-in-item">Merchant: </p>
+    <article class="no-item" id="item-">
+    <h2>This merchant currently has no items available.</h2>
+      <img src="https://cdn3d.iconscout.com/3d/premium/thumb/empty-box-3d-icon-download-in-png-blend-fbx-gltf-file-formats--state-result-not-found-pack-design-shapes-icons-7335859.png" alt="Empty box.">
+      <p><i>Please check back soon or explore other merchants for great products!</i></p>
+      <p>Thank you.</p>
+      <p class="merchant-name-in-item"> </p>
     </article>
     `
   } else {
