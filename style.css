@@ -11,6 +11,7 @@ html {
 
 body, html {
   background-color: gray;
+  min-height: 100vh;
 }
 
 body {
@@ -69,13 +70,45 @@ nav {
 }
 
 nav > button {
+  position: relative;
   border: none;
   margin-bottom: 20px;
-  background-color: gray;
+  background-color: white;
   width: 65%;
+  margin-right: 4px;
   text-align: center;
-  border-radius: 10px 0px 0px 10px;
+  border-radius: 100px 100px 100px 100px;
   padding: 20px;
+  transition: margin-right 0.5s ease, border-radius 0.5s ease;
+}
+
+nav > button.active-bubble::before,
+nav > button.active-bubble::after {
+  content: "";
+  position: absolute;
+  background-color: transparent;
+  height: 60px;
+  width: 40px;
+  right: 0;
+  transition: box-shadow 0.7s ease;
+}
+
+nav > button.active-bubble::before {
+  top: 100%;
+  border-top-right-radius: 50%;
+  box-shadow: 0 -30px 0 0 white;
+}
+
+nav > button.active-bubble::after {
+  bottom: 100%;
+  border-bottom-right-radius: 50%;
+  box-shadow: 0 30px 0 0 white;
+}
+
+.active-nav {
+  margin-right: 0px;
+  border-radius: 10px 0px 0px 10px;
+  transition: margin-right 0.5s ease, border-radius 0.5s ease;
 }
 
 #items-nav {
@@ -86,10 +119,6 @@ nav > button {
 #merchants-nav {
   border-top-left-radius: 50px;
   border-bottom-left-radius: 50px;
-}
-
-.active-nav {
-  background-color: white;
 }
 
 /* MAIN */
@@ -105,8 +134,8 @@ main {
 form {
   display: flex;
   gap: .5rem;
+  align-items: center;
 }
-
 .item,
 .merchant {
   display: flex;
@@ -166,7 +195,7 @@ form {
   display: none;
 } 
   
-/* Added CSS */
+/* Background*/
 body {
   background: linear-gradient(to bottom, #91267c, #f39c12, #00bfff);
   background-size: 200% 200%;
@@ -185,11 +214,7 @@ body {
   }
 }
 
-button{
-  border-radius: 15px;
-  
-}
-
+/* Button design */
 button {
   background-color: white;
   border-radius: 100px;
@@ -214,6 +239,68 @@ main button {
 main button:hover {
   box-shadow: rgba(0, 0, 0, 0.35) 0 4px 8px;
   transform: scale(1.05);
+}
+
+
+
+/* Views fade animations */
+#items-view,
+#merchants-view {
+  opacity: 0;
+  transition: opacity 0.7s ease; 
+}
+
+#items-view.fade-in,
+#merchants-view.fade-in {
+  opacity: 1; 
+}
+
+/* metrics */
+#display-metrics {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+
+.metrics {
+  background: linear-gradient(135deg, #ff7e5f, #983b8d);
+  padding: 10px;
+  border-radius: 8px;
+  color: white;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.metrics img {
+  padding-right: 10px;
+  border-right: 2px solid white;
+  width: 30px;
+  transition: transform 0.3s ease;
+}
+
+.metrics:hover svg {
+  transform: scale(1.2);
+  fill: #fff;
+}
+
+.metrics p {
+  font-size: 16px;
+  margin-left: 10px;
+  animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 #items-view {
@@ -265,5 +352,4 @@ main button:hover {
   font-size: 0.9em;  
   color: #333; 
 }
-
 
