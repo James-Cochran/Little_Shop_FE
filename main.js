@@ -75,9 +75,12 @@ function deleteMerchant(event) {
     .then(() => {
       let deletedMerchant = findMerchant(id)
       let indexOfMerchant = merchants.indexOf(deletedMerchant)
+      let indexOfMerchantsSorted = merchantsSorted.indexOf(deletedMerchant)
       merchants.splice(indexOfMerchant, 1)
+      merchantsSorted.splice(indexOfMerchantsSorted, 1)
       displayMerchants(merchants)
       showStatus('Success! Merchant removed!', true)
+
     })
 }
 
@@ -102,7 +105,9 @@ function submitMerchantEdits(event) {
     .then(patchResponse => {
       let merchantToUpdate = findMerchant(patchResponse.data.id)
       let indexOfMerchant = merchants.indexOf(merchantToUpdate)
+      let indexOfMerchantsSorted = merchantsSorted.indexOf(merchantToUpdate)
       merchants.splice(indexOfMerchant, 1, patchResponse.data)
+      merchantsSorted.splice(indexOfMerchantsSorted, 1, patchResponse.data)
       displayMerchants(merchants)
       showStatus('Success! Merchant updated!', true)
     })
