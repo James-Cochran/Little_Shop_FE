@@ -4,6 +4,7 @@ import {showStatus} from './errorHandling'
 
 //Sections, buttons, text
 const itemsView = document.querySelector("#items-view")
+const noItemsView = document.querySelector("#noItems-view")
 const merchantsView = document.querySelector("#merchants-view")
 const merchantsNavButton = document.querySelector("#merchants-nav")
 const itemsNavButton = document.querySelector("#items-nav")
@@ -157,6 +158,17 @@ function showMerchantItemsView(id, items) {
 // Functions that add data to the DOM
 function displayItems(items) {
   itemsView.innerHTML = ''
+  if (items.length === 0 ) {
+    itemsView.innerHTML += `
+    <article class="item" id="item-">
+    <img src="" alt="">
+    <h2>This Merchant Currently Has No Items List</h2>
+    <p>Please check again another time.</p>
+    <p>Thank you.</p>
+    <p class="merchant-name-in-item">Merchant: </p>
+    </article>
+    `
+  } else {
   let firstHundredItems = items.slice(0, 99)
   firstHundredItems.forEach(item => {
     let merchant = findMerchant(item.attributes.merchant_id).attributes.name
@@ -169,7 +181,8 @@ function displayItems(items) {
           <p class="merchant-name-in-item">Merchant: ${merchant}</p>
         </article>
     `
-  })
+    })
+  }
 }
 
 function displayMerchants(merchants) {
