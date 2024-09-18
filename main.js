@@ -124,6 +124,7 @@ function submitMerchant(event) {
   postData('merchants', { name: merchantName })
     .then(postedMerchant => {
       merchants.push(postedMerchant.data)
+      merchantsSorted.push(postedMerchant.data)
       displayAddedMerchant(postedMerchant.data)
       newMerchantName.value = ''
       showStatus('Success! Merchant added!', true)
