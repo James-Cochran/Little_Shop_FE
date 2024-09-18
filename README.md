@@ -43,7 +43,7 @@ ______________________________________________________
 
 ### Preview of App:
 (Provide ONE gif or screenshot of your application - choose the "coolest" piece of functionality to show off. gifs preferred!)
-  ![Little Shop](https://github.com/James-Cochran/Little_Shop_FE/blob/main/giphy.mp4)
+  ![Little Shop](https://github.com/James-Cochran/Little_Shop_FE/blob/main/LittleShop.gif)
 
 ### Context:
 (Give some context for the project here. How long did you have to work on it? What specific work/improvements did you contribute to this FE application?)
