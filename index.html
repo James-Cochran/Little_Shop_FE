@@ -19,7 +19,7 @@
         </div>
       </header>
       <nav>
-        <button id="merchants-nav" class="active-nav">
+        <button id="merchants-nav" class="active-nav active-bubble">
           <h2>Merchants</h2>
         </button>
         <button id="items-nav">
@@ -28,6 +28,7 @@
       </nav>
     </aside>
     <main>
+      <section id="display-metrics"> </section>
       <section class="display-options">
         <h3>Showing: <span id="showing-text">All Merchants</span></h3>
         <button id="add-new-button" class="add-new-button" data-state="merchant">+ Add New</button>
@@ -50,7 +51,7 @@
           <button id="submit-item" class="submit">Submit</button>
         </form>
       </section>
-      <section id="merchants-view" class="view">
+      <section id="merchants-view" class="view fade-in">
           <!-- Data will be displayed here -->
         </section>
         <section id="items-view" class="view hidden">

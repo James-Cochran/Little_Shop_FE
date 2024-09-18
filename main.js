@@ -10,7 +10,9 @@ const merchantsNavButton = document.querySelector("#merchants-nav")
 const itemsNavButton = document.querySelector("#items-nav")
 const addNewButton = document.querySelector("#add-new-button")
 const showingText = document.querySelector("#showing-text")
+const metrics  = document.querySelector("#display-metrics")
 const sortMerchantsButton = document.querySelector("#sort-merchants-button")
+
 
 //Form elements
 const merchantForm = document.querySelector("#new-merchant-form")
@@ -190,6 +192,7 @@ function displayItems(items) {
 
 function displayMerchants(merchants) {
     merchantsView.innerHTML = ''
+    displayMerchantMetrics(merchants)
     merchants.forEach(merchant => {
         merchantsView.innerHTML += 
         `<article class="merchant" id="merchant-${merchant.id}">
@@ -208,6 +211,16 @@ function displayMerchants(merchants) {
           </div>
         </article>`
     })
+}
+
+function displayMerchantMetrics(merchants){
+  metrics.innerHTML =''
+  metrics.innerHTML = `
+    <div class='metrics'> 
+      <img src='public/shop.svg'/>
+      <p>Total Merchants = ${merchants.length}</p<
+    </div>
+  `
 }
 
 function displayAddedMerchant(merchant) {
@@ -239,18 +252,38 @@ function displayMerchantItems(event) {
 function show(elements) {
   elements.forEach(element => {
     element.classList.remove('hidden')
+  
+    if (element === itemsView) {
+      setTimeout(() => {
+        element.classList.add('fade-in')
+      }, 0); 
+    }
+
+    if (element === merchantsView) {
+      setTimeout(() => {
+        element.classList.add('fade-in')
+      }, 0);
+    }
   })
 }
 
 function hide(elements) {
   elements.forEach(element => {
+    if (element === itemsView) {
+      element.classList.remove('fade-in') // Remove fade-in class before hiding
+    }
+    if (element === merchantsView) {
+      element.classList.remove('fade-in') // Remove fade-in class before hiding
+    }
     element.classList.add('hidden')
   })
 }
 
 function addRemoveActiveNav(nav1, nav2) {
   nav1.classList.add('active-nav')
+  nav1.classList.add('active-bubble')
   nav2.classList.remove('active-nav')
+  nav2.classList.remove('active-bubble')
 }
 
 function filterByMerchant(merchantId) {
