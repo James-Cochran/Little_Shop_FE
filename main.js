@@ -4,6 +4,7 @@ import {showStatus} from './errorHandling'
 
 //Sections, buttons, text
 const itemsView = document.querySelector("#items-view")
+const noItemsView = document.querySelector("#noItems-view")
 const merchantsView = document.querySelector("#merchants-view")
 const merchantsNavButton = document.querySelector("#merchants-nav")
 const itemsNavButton = document.querySelector("#items-nav")
@@ -162,6 +163,17 @@ function showMerchantItemsView(id, items) {
 // Functions that add data to the DOM
 function displayItems(items) {
   itemsView.innerHTML = ''
+  if (items.length === 0 ) {
+    itemsView.innerHTML += `
+    <article class="no-item" id="item-">
+    <h2>This merchant currently has no items available.</h2>
+      <img src="https://cdn3d.iconscout.com/3d/premium/thumb/empty-box-3d-icon-download-in-png-blend-fbx-gltf-file-formats--state-result-not-found-pack-design-shapes-icons-7335859.png" alt="Empty box.">
+      <p><i>Please check back soon or explore other merchants for great products!</i></p>
+      <p>Thank you.</p>
+      <p class="merchant-name-in-item"> </p>
+    </article>
+    `
+  } else {
   let firstHundredItems = items.slice(0, 99)
   firstHundredItems.forEach(item => {
     let merchant = findMerchant(item.attributes.merchant_id).attributes.name
@@ -174,7 +186,8 @@ function displayItems(items) {
           <p class="merchant-name-in-item">Merchant: ${merchant}</p>
         </article>
     `
-  })
+    })
+  }
 }
 
 function displayMerchants(merchants) {

@@ -353,3 +353,13 @@ main button:hover {
   color: #333; 
 }
 
+/*  No item display*/
+.no-item {
+  text-align: center;
+}
+
+.no-item h2 {
+  margin-top: 5px;
+  padding: 15px;
+}
+
