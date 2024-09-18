@@ -140,6 +140,7 @@ function showItemsView() {
   addNewButton.dataset.state = 'item'
   show([itemsView])
   hide([merchantsView, merchantForm, addNewButton])
+  displayItemMetrics(items)
   displayItems(items)
 }
 
@@ -149,6 +150,7 @@ function showMerchantItemsView(id, items) {
   hide([merchantsView, addNewButton])
   addRemoveActiveNav(itemsNavButton, merchantsNavButton)
   addNewButton.dataset.state = 'item'
+  displayItemMetrics(items)
   displayItems(items)
 }
 
@@ -196,11 +198,38 @@ function displayMerchants(merchants) {
 function displayMerchantMetrics(merchants){
   metrics.innerHTML =''
   metrics.innerHTML = `
-    <div class='metrics'> 
+    <div class='metrics orange-purple'> 
       <img src='public/shop.svg'/>
       <p>Total Merchants = ${merchants.length}</p<
     </div>
   `
+}
+
+
+function displayItemMetrics(items) {
+  metrics.innerHTML = '';
+
+  // Calculate total cost
+  const highest_cost = items.reduce((accum, item) => {
+    accum += item.attributes.unit_price;
+    return accum;
+  }, 0);
+
+  // Calculate average cost and round to 2 decimal places
+  const average_cost = highest_cost / items.length;
+  const average_cost_rounded = Math.round(average_cost * 100) / 100;
+
+  // Update metrics with innerHTML
+  metrics.innerHTML = `
+    <div class='metrics orange-blue'> 
+      <img src='public/receipt.svg' alt='Shop Icon'/>
+      <p>Total Items = ${items.length}</p>
+    </div>
+    <div class='metrics blue-purple'> 
+      <img src='public/cash-stack.svg' alt='Shop Icon'/>
+      <p>Average Cost = ${average_cost_rounded}</p>
+    </div>
+  `;
 }
 
 function displayAddedMerchant(merchant) {

@@ -260,7 +260,6 @@ main button:hover {
 
 
 .metrics {
-  background: linear-gradient(135deg, #ff7e5f, #983b8d);
   padding: 10px;
   border-radius: 8px;
   color: white;
@@ -269,6 +268,19 @@ main button:hover {
   align-items: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+.orange-purple {
+  background: linear-gradient(135deg, #ff7e5f, #983b8d);
+}
+
+.orange-blue{
+  background: linear-gradient(135deg, #ff7e5f, #1851a5);
+}
+
+.blue-purple{
+  background: linear-gradient(135deg, #1851a5, #983b8d);
+}
+
 .metrics img {
   padding-right: 10px;
   border-right: 2px solid white;
