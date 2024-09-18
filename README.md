@@ -1,6 +1,4 @@
-# Little Shop | Group Project | Frontend Starter Repo
-
-# Hang in There  
+# Little Shop | Group Project
 
 ### Abstract:
 (Briefly describe what you built and its features. What problem is the app solving? How does this application solve that problem?)
