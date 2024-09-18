@@ -4,12 +4,15 @@ import {showStatus} from './errorHandling'
 
 //Sections, buttons, text
 const itemsView = document.querySelector("#items-view")
+const noItemsView = document.querySelector("#noItems-view")
 const merchantsView = document.querySelector("#merchants-view")
 const merchantsNavButton = document.querySelector("#merchants-nav")
 const itemsNavButton = document.querySelector("#items-nav")
 const addNewButton = document.querySelector("#add-new-button")
 const showingText = document.querySelector("#showing-text")
 const metrics  = document.querySelector("#display-metrics")
+const sortMerchantsButton = document.querySelector("#sort-merchants-button")
+
 
 //Form elements
 const merchantForm = document.querySelector("#new-merchant-form")
@@ -32,14 +35,18 @@ submitMerchantButton.addEventListener('click', (event) => {
   submitMerchant(event)
 })
 
+sortMerchantsButton.addEventListener('click', sortMerchants)
+
 //Global variables
 let merchants;
+let merchantsSorted;
 let items;
 
 //Page load data fetching
 Promise.all([fetchData('merchants'), fetchData('items')])
 .then(responses => {
     merchants = responses[0].data
+    merchantsSorted = [...responses[0].data]  // shallow copy.
     items = responses[1].data
     displayMerchants(merchants)
   })
@@ -68,9 +75,12 @@ function deleteMerchant(event) {
     .then(() => {
       let deletedMerchant = findMerchant(id)
       let indexOfMerchant = merchants.indexOf(deletedMerchant)
+      let indexOfMerchantsSorted = merchantsSorted.indexOf(deletedMerchant)
       merchants.splice(indexOfMerchant, 1)
+      merchantsSorted.splice(indexOfMerchantsSorted, 1)
       displayMerchants(merchants)
       showStatus('Success! Merchant removed!', true)
+
     })
 }
 
@@ -95,7 +105,9 @@ function submitMerchantEdits(event) {
     .then(patchResponse => {
       let merchantToUpdate = findMerchant(patchResponse.data.id)
       let indexOfMerchant = merchants.indexOf(merchantToUpdate)
+      let indexOfMerchantsSorted = merchantsSorted.indexOf(merchantToUpdate)
       merchants.splice(indexOfMerchant, 1, patchResponse.data)
+      merchantsSorted.splice(indexOfMerchantsSorted, 1, patchResponse.data)
       displayMerchants(merchants)
       showStatus('Success! Merchant updated!', true)
     })
@@ -117,6 +129,7 @@ function submitMerchant(event) {
   postData('merchants', { name: merchantName })
     .then(postedMerchant => {
       merchants.push(postedMerchant.data)
+      merchantsSorted.push(postedMerchant.data)
       displayAddedMerchant(postedMerchant.data)
       newMerchantName.value = ''
       showStatus('Success! Merchant added!', true)
@@ -129,8 +142,9 @@ function showMerchantsView() {
   showingText.innerText = "All Merchants"
   addRemoveActiveNav(merchantsNavButton, itemsNavButton)
   addNewButton.dataset.state = 'merchant'
-  show([merchantsView, addNewButton])
+  show([merchantsView, addNewButton, sortMerchantsButton])
   hide([itemsView])
+  console.log(merchants)
   displayMerchants(merchants)
 }
 
@@ -138,16 +152,16 @@ function showItemsView() {
   showingText.innerText = "All Items"
   addRemoveActiveNav(itemsNavButton, merchantsNavButton)
   addNewButton.dataset.state = 'item'
-  show([itemsView])
-  hide([merchantsView, merchantForm, addNewButton])
+  show([itemsView]))
   displayItemMetrics(items)
+  hide([merchantsView, merchantForm, addNewButton, sortMerchantsButton])
   displayItems(items)
 }
 
 function showMerchantItemsView(id, items) {
   showingText.innerText = `All Items for Merchant #${id}`
   show([itemsView])
-  hide([merchantsView, addNewButton])
+  hide([merchantsView, addNewButton, sortMerchantsButton])
   addRemoveActiveNav(itemsNavButton, merchantsNavButton)
   addNewButton.dataset.state = 'item'
   displayItemMetrics(items)
@@ -157,6 +171,17 @@ function showMerchantItemsView(id, items) {
 // Functions that add data to the DOM
 function displayItems(items) {
   itemsView.innerHTML = ''
+  if (items.length === 0 ) {
+    itemsView.innerHTML += `
+    <article class="no-item" id="item-">
+    <h2>This merchant currently has no items available.</h2>
+      <img src="https://cdn3d.iconscout.com/3d/premium/thumb/empty-box-3d-icon-download-in-png-blend-fbx-gltf-file-formats--state-result-not-found-pack-design-shapes-icons-7335859.png" alt="Empty box.">
+      <p><i>Please check back soon or explore other merchants for great products!</i></p>
+      <p>Thank you.</p>
+      <p class="merchant-name-in-item"> </p>
+    </article>
+    `
+  } else {
   let firstHundredItems = items.slice(0, 99)
   firstHundredItems.forEach(item => {
     let merchant = findMerchant(item.attributes.merchant_id).attributes.name
@@ -169,7 +194,8 @@ function displayItems(items) {
           <p class="merchant-name-in-item">Merchant: ${merchant}</p>
         </article>
     `
-  })
+    })
+  }
 }
 
 function displayMerchants(merchants) {
@@ -296,24 +322,29 @@ function addRemoveActiveNav(nav1, nav2) {
 }
 
 function filterByMerchant(merchantId) {
-  const specificMerchantItems = []
-
-  for (let i = 0; i < items.length; i++) {
-    if (items[i].attributes.merchant_id === parseInt(merchantId)) {
-      specificMerchantItems.push(items[i])
-    }
-  }
-
+  const specificMerchantItems = items.filter((item) => {
+    return item.attributes.merchant_id === parseInt(merchantId)
+  })
   return specificMerchantItems
 }
 
 function findMerchant(id) {
-  let foundMerchant;
 
-  for (let i = 0; i < merchants.length; i++) {
-    if (parseInt(merchants[i].id) === parseInt(id)) {
-      foundMerchant = merchants[i]
-      return foundMerchant
-    }
-  }
+  let foundMerchant = merchants.find((merchant) => {
+    return (parseInt(id)) === (parseInt(merchant.id))
+  })
+
+  return foundMerchant
+   
+}
+
+function sortMerchants() {
+  merchantsSorted.sort((a, b) => {
+    const first = a.attributes.name.toLowerCase()
+    const second = b.attributes.name.toLowerCase()
+
+    return first.localeCompare(second);
+  })
+
+  displayMerchants(merchantsSorted)
 }

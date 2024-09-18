@@ -19,6 +19,10 @@ body {
   margin: 0px;
 }
 
+button {
+  cursor: pointer;
+}
+
 /* SIDEBAR */
 
 aside {
@@ -238,6 +242,7 @@ main button:hover {
 }
 
 
+
 /* Views fade animations */
 #items-view,
 #merchants-view {
@@ -309,3 +314,64 @@ main button:hover {
     transform: translateY(0);
   }
 }
+
+#items-view {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: stretch;
+  background-color: white;
+  padding: 10px;
+}
+
+#items-view .item {
+  background-color: #f7f9fc;
+  width: 30%;
+  margin: .5%;
+  padding: 15px;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+#items-view .item:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 12px 40px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+#items-view .item h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px; 
+}
+
+#items-view .item p {
+  margin: 10px 0;
+  line-height: 1.5; 
+}
+
+#items-view p:nth-child(3n+1) {
+  margin-top: 10px; 
+  font-weight: bold;
+}
+
+#items-view .item .merchant {
+  font-style: italic;
+  margin-top: 5px;
+  font-size: 0.9em;  
+  color: #333; 
+}
+
+/*  No item display*/
+.no-item {
+  text-align: center;
+}
+
+.no-item h2 {
+  margin-top: 5px;
+  padding: 15px;
+}
+
