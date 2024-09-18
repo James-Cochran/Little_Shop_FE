@@ -1,16 +1,26 @@
 /* GENERAL */
  
 * {
-  font-family: sans-serif;
+  font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
+}
+
+html {
+  overflow-x: hidden;
+  overflow-y: auto; /* This allows vertical scrolling */
 }
 
 body, html {
   background-color: gray;
+  min-height: 100vh;
 }
 
 body {
   display: flex;
   margin: 0px;
+}
+
+button {
+  cursor: pointer;
 }
 
 /* SIDEBAR */
@@ -21,15 +31,31 @@ aside {
 }
 
 header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
   text-align: center;
   margin: 10px 10px 80px 10px;
   background-color: black;
   color: white;
+  font-weight: 900;
   padding: 15px;
+  background-color: transparent;
+}
+
+.logo {
+  height: 5rem;
+}
+.title-container{
+  display: flex;
+  flex-direction: column;
 }
 
 h1 {
   font-size: 2.5em;
+  font-family: "Rubik";
+  font-style:italic
 }
 
 h1, 
@@ -44,37 +70,79 @@ nav {
 }
 
 nav > button {
+  position: relative;
   border: none;
   margin-bottom: 20px;
-  background-color: gray;
+  background-color: white;
   width: 65%;
+  margin-right: 4px;
   text-align: center;
-  border-radius: 10px 0px 0px 10px;
+  border-radius: 100px 100px 100px 100px;
   padding: 20px;
+  transition: margin-right 0.5s ease, border-radius 0.5s ease;
+}
+
+nav > button.active-bubble::before,
+nav > button.active-bubble::after {
+  content: "";
+  position: absolute;
+  background-color: transparent;
+  height: 60px;
+  width: 40px;
+  right: 0;
+  transition: box-shadow 0.7s ease;
+}
+
+nav > button.active-bubble::before {
+  top: 100%;
+  border-top-right-radius: 50%;
+  box-shadow: 0 -30px 0 0 white;
+}
+
+nav > button.active-bubble::after {
+  bottom: 100%;
+  border-bottom-right-radius: 50%;
+  box-shadow: 0 30px 0 0 white;
 }
 
 .active-nav {
-  background-color: white;
+  margin-right: 0px;
+  border-radius: 10px 0px 0px 10px;
+  transition: margin-right 0.5s ease, border-radius 0.5s ease;
+}
+
+#items-nav {
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+}
+
+#merchants-nav {
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
 }
 
 /* MAIN */
 
 main {
+  margin-top: 30px;
   padding: 10px;
   width: 75%;
   background-color: white;
+  border-radius: 10px;
 }
 
 form {
   display: flex;
+  gap: .5rem;
+  align-items: center;
 }
-
 .item,
 .merchant {
   display: flex;
-  background-color: lightgray;
+  background-color: #f7f9fc;
   margin: 10px;
   padding: 5px;
+  border-radius: 5px;
 }
 
 .item {
@@ -124,7 +192,186 @@ form {
 /* HIDDEN ELEMENTS */
 
 .hidden {
-  display: none;
+  display: none !important;
 } 
   
-co
+/* Background*/
+body {
+  background: linear-gradient(to bottom, #91267c, #f39c12, #00bfff);
+  background-size: 200% 200%;
+  animation: gradientAnimation 10s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 50% 0%;
+  }
+  50% {
+    background-position: 50% 100%;
+  }
+  100% {
+    background-position: 50% 0%;
+  }
+}
+
+/* Button design */
+button {
+  background-color: white;
+  border-radius: 100px;
+
+  color: black; 
+  cursor: pointer;
+  display: inline-block;
+  font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 250ms;
+  border: 0;
+  font-size: 16px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+main button {
+  box-shadow: rgba(0, 0, 0, 0.2) 0 4px 8px; /* A simpler shadow with fewer layers */
+}
+
+main button:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0 4px 8px;
+  transform: scale(1.05);
+}
+
+
+
+/* Views fade animations */
+#items-view,
+#merchants-view {
+  opacity: 0;
+  transition: opacity 0.7s ease; 
+}
+
+#items-view.fade-in,
+#merchants-view.fade-in {
+  opacity: 1; 
+}
+
+/* metrics */
+#display-metrics {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+
+.metrics {
+  padding: 10px;
+  border-radius: 8px;
+  color: white;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.orange-purple {
+  background: linear-gradient(135deg, #ff7e5f, #983b8d);
+}
+
+.orange-blue{
+  background: linear-gradient(135deg, #ff7e5f, #1851a5);
+}
+
+.blue-purple{
+  background: linear-gradient(135deg, #1851a5, #983b8d);
+}
+
+.metrics img {
+  padding-right: 10px;
+  border-right: 2px solid white;
+  width: 30px;
+  transition: transform 0.3s ease;
+}
+
+.metrics:hover svg {
+  transform: scale(1.2);
+  fill: #fff;
+}
+
+.metrics p {
+  font-size: 16px;
+  margin-left: 10px;
+  animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#items-view {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: stretch;
+  background-color: white;
+  padding: 10px;
+}
+
+#items-view .item {
+  background-color: #f7f9fc;
+  width: 30%;
+  margin: .5%;
+  padding: 15px;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+#items-view .item:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 12px 40px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+#items-view .item h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px; 
+}
+
+#items-view .item p {
+  margin: 10px 0;
+  line-height: 1.5; 
+}
+
+#items-view p:nth-child(3n+1) {
+  margin-top: 10px; 
+  font-weight: bold;
+}
+
+#items-view .item .merchant {
+  font-style: italic;
+  margin-top: 5px;
+  font-size: 0.9em;  
+  color: #333; 
+}
+
+/*  No item display*/
+.no-item {
+  text-align: center;
+}
+
+.no-item h2 {
+  margin-top: 5px;
+  padding: 15px;
+}
+

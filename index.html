@@ -2,6 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Little Shop</title>
@@ -9,11 +12,14 @@
   <body>
     <aside>
       <header>
-        <h1>Little Shop</h1>
-        <h2>Admin Portal</h2>
+        <img class="logo" src="/vite.svg">
+        <div class="title-container">
+          <h1>Little Shop</h1>
+          <h2>Admin Portal</h2>
+        </div>
       </header>
       <nav>
-        <button id="merchants-nav" class="active-nav">
+        <button id="merchants-nav" class="active-nav active-bubble">
           <h2>Merchants</h2>
         </button>
         <button id="items-nav">
@@ -22,11 +28,13 @@
       </nav>
     </aside>
     <main>
+      <section id="display-metrics"> </section>
       <section class="display-options">
         <h3>Showing: <span id="showing-text">All Merchants</span></h3>
         <button id="add-new-button" class="add-new-button" data-state="merchant">+ Add New</button>
+        <button id="sort-merchants-button" class="sort-merchants-button">Sort A-Z</button>
       </section>
-      <section id="add-new-options">
+      <section id="add-new-options"> 
         <form id="new-merchant-form" class="hidden">
           <label for="new-merchant-name">New Merchant Name</label>
           <input id="new-merchant-name" name="new-merchant-name" type="text">
@@ -43,7 +51,7 @@
           <button id="submit-item" class="submit">Submit</button>
         </form>
       </section>
-      <section id="merchants-view" class="view">
+      <section id="merchants-view" class="view fade-in">
           <!-- Data will be displayed here -->
         </section>
         <section id="items-view" class="view hidden">
@@ -56,4 +64,3 @@
     <script type="module" src="/main.js"></script>
   </body>
 </html>
-
