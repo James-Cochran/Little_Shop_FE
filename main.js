@@ -234,18 +234,15 @@ function displayMerchantMetrics(merchants){
 
 function displayItemMetrics(items) {
   metrics.innerHTML = '';
-
-  // Calculate total cost
+  if (items.length == 0){
+    return
+  }
   const highest_cost = items.reduce((accum, item) => {
     accum += item.attributes.unit_price;
     return accum;
   }, 0);
-
-  // Calculate average cost and round to 2 decimal places
   const average_cost = highest_cost / items.length;
   const average_cost_rounded = Math.round(average_cost * 100) / 100;
-
-  // Update metrics with innerHTML
   metrics.innerHTML = `
     <div class='metrics orange-blue'> 
       <img src='public/receipt.svg' alt='Shop Icon'/>
@@ -290,6 +287,7 @@ function show(elements) {
   
     if (element === itemsView) {
       setTimeout(() => {
+
         element.classList.add('fade-in')
       }, 0); 
     }
@@ -305,10 +303,10 @@ function show(elements) {
 function hide(elements) {
   elements.forEach(element => {
     if (element === itemsView) {
-      element.classList.remove('fade-in') // Remove fade-in class before hiding
+      element.classList.remove('fade-in') 
     }
     if (element === merchantsView) {
-      element.classList.remove('fade-in') // Remove fade-in class before hiding
+      element.classList.remove('fade-in')
     }
     element.classList.add('hidden')
   })
