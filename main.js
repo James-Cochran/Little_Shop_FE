@@ -9,6 +9,7 @@ const merchantsNavButton = document.querySelector("#merchants-nav")
 const itemsNavButton = document.querySelector("#items-nav")
 const addNewButton = document.querySelector("#add-new-button")
 const showingText = document.querySelector("#showing-text")
+const metrics  = document.querySelector("#display-metrics")
 
 //Form elements
 const merchantForm = document.querySelector("#new-merchant-form")
@@ -171,6 +172,7 @@ function displayItems(items) {
 
 function displayMerchants(merchants) {
     merchantsView.innerHTML = ''
+    displayMerchantMetrics(merchants)
     merchants.forEach(merchant => {
         merchantsView.innerHTML += 
         `<article class="merchant" id="merchant-${merchant.id}">
@@ -189,6 +191,16 @@ function displayMerchants(merchants) {
           </div>
         </article>`
     })
+}
+
+function displayMerchantMetrics(merchants){
+  metrics.innerHTML =''
+  metrics.innerHTML = `
+    <div class='metrics'> 
+      <img src='public/shop.svg'/>
+      <p>Total Merchants = ${merchants.length}</p<
+    </div>
+  `
 }
 
 function displayAddedMerchant(merchant) {

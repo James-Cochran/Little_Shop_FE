@@ -249,3 +249,51 @@ main button:hover {
 #merchants-view.fade-in {
   opacity: 1; 
 }
+
+/* metrics */
+#display-metrics {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+
+.metrics {
+  background: linear-gradient(135deg, #ff7e5f, #983b8d);
+  padding: 10px;
+  border-radius: 8px;
+  color: white;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.metrics img {
+  padding-right: 10px;
+  border-right: 2px solid white;
+  width: 30px;
+  transition: transform 0.3s ease;
+}
+
+.metrics:hover svg {
+  transform: scale(1.2);
+  fill: #fff;
+}
+
+.metrics p {
+  font-size: 16px;
+  margin-left: 10px;
+  animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
