@@ -219,7 +219,7 @@ main button:hover {
 #items-view {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: stretch;
   background-color: white;
   padding: 10px;
@@ -237,6 +237,11 @@ main button:hover {
   justify-content: space-between;
   align-items: center;
   text-align: center;
+}
+
+#items-view .item:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 12px 40px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
 }
 
 #items-view .item h2 {
