@@ -10,6 +10,8 @@ const itemsNavButton = document.querySelector("#items-nav")
 const addNewButton = document.querySelector("#add-new-button")
 const showingText = document.querySelector("#showing-text")
 const metrics  = document.querySelector("#display-metrics")
+const sortMerchantsButton = document.querySelector("#sort-merchants-button")
+
 
 //Form elements
 const merchantForm = document.querySelector("#new-merchant-form")
@@ -32,14 +34,18 @@ submitMerchantButton.addEventListener('click', (event) => {
   submitMerchant(event)
 })
 
+sortMerchantsButton.addEventListener('click', sortMerchants)
+
 //Global variables
 let merchants;
+let merchantsSorted;
 let items;
 
 //Page load data fetching
 Promise.all([fetchData('merchants'), fetchData('items')])
 .then(responses => {
     merchants = responses[0].data
+    merchantsSorted = [...responses[0].data]  // shallow copy.
     items = responses[1].data
     displayMerchants(merchants)
   })
@@ -129,8 +135,9 @@ function showMerchantsView() {
   showingText.innerText = "All Merchants"
   addRemoveActiveNav(merchantsNavButton, itemsNavButton)
   addNewButton.dataset.state = 'merchant'
-  show([merchantsView, addNewButton])
+  show([merchantsView, addNewButton, sortMerchantsButton])
   hide([itemsView])
+  console.log(merchants)
   displayMerchants(merchants)
 }
 
@@ -139,14 +146,14 @@ function showItemsView() {
   addRemoveActiveNav(itemsNavButton, merchantsNavButton)
   addNewButton.dataset.state = 'item'
   show([itemsView])
-  hide([merchantsView, merchantForm, addNewButton])
+  hide([merchantsView, merchantForm, addNewButton, sortMerchantsButton])
   displayItems(items)
 }
 
 function showMerchantItemsView(id, items) {
   showingText.innerText = `All Items for Merchant #${id}`
   show([itemsView])
-  hide([merchantsView, addNewButton])
+  hide([merchantsView, addNewButton, sortMerchantsButton])
   addRemoveActiveNav(itemsNavButton, merchantsNavButton)
   addNewButton.dataset.state = 'item'
   displayItems(items)
@@ -267,24 +274,29 @@ function addRemoveActiveNav(nav1, nav2) {
 }
 
 function filterByMerchant(merchantId) {
-  const specificMerchantItems = []
-
-  for (let i = 0; i < items.length; i++) {
-    if (items[i].attributes.merchant_id === parseInt(merchantId)) {
-      specificMerchantItems.push(items[i])
-    }
-  }
-
+  const specificMerchantItems = items.filter((item) => {
+    return item.attributes.merchant_id === parseInt(merchantId)
+  })
   return specificMerchantItems
 }
 
 function findMerchant(id) {
-  let foundMerchant;
 
-  for (let i = 0; i < merchants.length; i++) {
-    if (parseInt(merchants[i].id) === parseInt(id)) {
-      foundMerchant = merchants[i]
-      return foundMerchant
-    }
-  }
+  let foundMerchant = merchants.find((merchant) => {
+    return (parseInt(id)) === (parseInt(merchant.id))
+  })
+
+  return foundMerchant
+   
+}
+
+function sortMerchants() {
+  merchantsSorted.sort((a, b) => {
+    const first = a.attributes.name.toLowerCase()
+    const second = b.attributes.name.toLowerCase()
+
+    return first.localeCompare(second);
+  })
+
+  displayMerchants(merchantsSorted)
 }
